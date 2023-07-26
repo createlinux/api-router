@@ -1,0 +1,16 @@
+{
+    "name": "createlinux/routing",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Createlinux\\Routing\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "孟小成",
+            "email": "litchilab@foxmail.com"
+        }
+    ]
+}
