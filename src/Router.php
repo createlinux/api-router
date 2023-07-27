@@ -42,41 +42,41 @@ class Router
      * 获取路由别名
      */
 
-    public function show(string $businessName, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "show")
+    public function show(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "show")
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessName, $uri, $methodName, "GET", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "GET", $permissionType);
     }
 
     /**
-     * @param string $businessName
+     * @param string $businessLabel
      * @param string $uri
      * @param string $methodName
      * @param array $permission
      * @return void
      */
-    public function store(string $businessName, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "store")
+    public function store(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "store")
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessName, $uri, $methodName, "POST", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "POST", $permissionType);
     }
 
-    public function destroy(string $businessName, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "destroy")
+    public function destroy(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "destroy")
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessName, $uri, $methodName, "DELETE", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "DELETE", $permissionType);
     }
 
-    public function update(string $businessName, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "update")
+    public function update(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "update")
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessName, $uri, $methodName, "UPDATE", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "UPDATE", $permissionType);
     }
 
-    public function patch(string $businessName, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "patch")
+    public function patch(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "patch")
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessName, $uri, $methodName, "PATCH", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "PATCH", $permissionType);
     }
 
     public function getAll(): Collection
@@ -102,7 +102,7 @@ class Router
 
     /**
      * @param string $aliasName
-     * @param string $businessName
+     * @param string $businessLabel
      * @param string $uri
      * @param string $methodName
      * @param PermissionType $permissionType
@@ -110,7 +110,7 @@ class Router
      */
     protected function pushRouteItem(
         string         $aliasName,
-        string         $businessName,
+        string         $businessLabel,
         string         $uri,
         string         $methodName,
         string         $requestMethod,
@@ -119,7 +119,7 @@ class Router
     {
         $this->routerCollection->offsetSet(
             $aliasName,
-            new RouterItem($this->categoryAlias, $businessName, $aliasName, $uri, $this->className, $methodName, $requestMethod, $permissionType),
+            new RouterItem($this->categoryAlias, $businessLabel, $aliasName, $uri, $this->className, $methodName, $requestMethod, $permissionType),
         );
     }
 
