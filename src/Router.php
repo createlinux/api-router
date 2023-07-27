@@ -38,16 +38,6 @@ class Router
         return $this->className;
     }
 
-    public function setLabel(string $label)
-    {
-        $this->label = $label;
-    }
-
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
     /**
      * 获取路由别名
      */
