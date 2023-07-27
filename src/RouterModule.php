@@ -56,6 +56,9 @@ final class RouterModule
         return $this->resourceCollection;
     }
 
+    /**
+     * @return Collection
+     */
     public function getAllRouters()
     {
         return $this->routerItemCollection;

@@ -65,6 +65,15 @@ final class RouterItem
         return $this->methodName;
     }
 
+    /**
+     * 获取请求方法
+     * @return string
+     */
+    public function getRequestMethod()
+    {
+        return $this->requestMethod;
+    }
+
     public function getPermissionType(): PermissionType|string
     {
         return $this->permissionType;
