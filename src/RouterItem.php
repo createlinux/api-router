@@ -13,19 +13,22 @@ final class RouterItem
     protected PermissionType|string $permissionType = '';
     protected string $requestMethod = 'GET';
     protected string $uri = '';
-    protected string $categoryAlias;
+    protected string $moduleDirName;
     protected string $className;
     protected string $methodName = '';
 
     /**
+     * @param string $moduleDirName 模块目录名
      * @param string $businessName 业务名称
      * @param string $aliasName 别名
      * @param string $uri 路由
+     * @param string $className 类名
      * @param string $methodName 方法名称
+     * @param string $requestMethod HTTP请求方法
      * @param PermissionType $permissionType 权限类型
      */
     public function __construct(
-        string         $categoryAlias,
+        string         $moduleDirName,
         string         $businessName,
         string         $aliasName,
         string         $uri,
@@ -38,7 +41,7 @@ final class RouterItem
         $this->className = $className;
         $this->methodName = $methodName;
         $this->permissionType = $permissionType;
-        $this->categoryAlias = $categoryAlias;
+        $this->moduleDirName = $moduleDirName;
         $this->businessName = $businessName;
         $this->aliasName = $aliasName;
         $this->requestMethod = strtoupper($requestMethod);
@@ -85,5 +88,10 @@ final class RouterItem
     public function getClassName()
     {
         return $this->className;
+    }
+
+    public function getModuleDirName()
+    {
+        return $this->moduleDirName;
     }
 }
