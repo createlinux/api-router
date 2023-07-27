@@ -2,6 +2,9 @@
 
 namespace Createlinux\Routing;
 
+/**
+ *
+ */
 class Collection implements \ArrayAccess
 {
 

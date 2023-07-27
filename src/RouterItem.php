@@ -69,4 +69,12 @@ final class RouterItem
     {
         return $this->permissionType;
     }
+
+    /**
+     * @return string
+     */
+    public function getClassName()
+    {
+        return $this->className;
+    }
 }
