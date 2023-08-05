@@ -9,5 +9,7 @@ enum PermissionType: string
     //根据角色判断
     case role = 'role';
 
+    case login = 'login';
+
     case private = 'private';
 }
