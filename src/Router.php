@@ -21,7 +21,7 @@ class Router
 
     public function setControllerName(string $controllerName)
     {
-        if(!trim($controllerName)){
+        if (!trim($controllerName)) {
             throw new \InvalidArgumentException("控制器名称不能为空");
         }
         $this->className = $controllerName;
@@ -46,6 +46,12 @@ class Router
     {
         $aliasName = $this->packAliasName($methodName);
         $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "GET", $permissionType);
+    }
+
+    public function index(string $businessLabel,string $uri,PermissionType $permissionType = PermissionType::role,string $methodName = 'index')
+    {
+        $aliasName = $this->packAliasName($methodName);
+        $this->pushRouteItem($aliasName,$businessLabel,$uri,$methodName,"GET",$permissionType);
     }
 
     /**
