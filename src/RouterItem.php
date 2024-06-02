@@ -16,6 +16,7 @@ final class RouterItem
     protected string $moduleDirName;
     protected string $className;
     protected string $methodName = '';
+    protected array $middleware = [];
 
     /**
      * @param string $moduleDirName 模块目录名
@@ -36,6 +37,7 @@ final class RouterItem
         string         $methodName,
         string         $requestMethod,
         PermissionType $permissionType,
+        array $middlewares = []
     )
     {
         $this->className = $className;
@@ -46,6 +48,7 @@ final class RouterItem
         $this->aliasName = $aliasName;
         $this->requestMethod = strtoupper($requestMethod);
         $this->uri = "/" . ltrim($uri, "/");
+        $this->middleware = $middlewares;
     }
 
     public function getBusinessName(): string
@@ -93,5 +96,10 @@ final class RouterItem
     public function getModuleDirName()
     {
         return $this->moduleDirName;
+    }
+
+    public function getMiddleware(): array
+    {
+        return $this->middleware;
     }
 }
