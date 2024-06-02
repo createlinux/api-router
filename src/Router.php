@@ -12,11 +12,13 @@ class Router
 
     protected Collection $routerCollection;
     protected string $categoryAlias = '';
+    private Resource $resource;
 
-    public function __construct(string $categoryAlias)
+    public function __construct(string $categoryAlias, Resource $resource)
     {
         $this->categoryAlias = $categoryAlias;
         $this->routerCollection = new Collection();
+        $this->resource = $resource;
     }
 
     public function setControllerName(string $controllerName)
@@ -42,16 +44,16 @@ class Router
      * 获取路由别名
      */
 
-    public function show(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "show")
+    public function show(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "show", array $middlewares = [])
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "GET", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "GET", $permissionType, $middlewares);
     }
 
-    public function index(string $businessLabel,string $uri,PermissionType $permissionType = PermissionType::role,string $methodName = 'index')
+    public function index(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = 'index', array $middlewares = [])
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName,$businessLabel,$uri,$methodName,"GET",$permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "GET", $permissionType, $middlewares);
     }
 
     /**
@@ -61,28 +63,28 @@ class Router
      * @param array $permission
      * @return void
      */
-    public function store(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "store")
+    public function store(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "store", array $middlewares = [])
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "POST", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "POST", $permissionType, $middlewares);
     }
 
-    public function destroy(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "destroy")
+    public function destroy(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "destroy", array $middlewares = [])
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "DELETE", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "DELETE", $permissionType, $middlewares);
     }
 
-    public function update(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "update")
+    public function update(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "update", array $middlewares = [])
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "UPDATE", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "UPDATE", $permissionType, $middlewares);
     }
 
-    public function patch(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "patch")
+    public function patch(string $businessLabel, string $uri, PermissionType $permissionType = PermissionType::role, string $methodName = "patch", array $middlewares = [])
     {
         $aliasName = $this->packAliasName($methodName);
-        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "PATCH", $permissionType);
+        $this->pushRouteItem($aliasName, $businessLabel, $uri, $methodName, "PATCH", $permissionType, $middlewares);
     }
 
     public function getAll(): Collection
@@ -121,12 +123,28 @@ class Router
         string         $methodName,
         string         $requestMethod,
         PermissionType $permissionType,
+        array          $middlewares = []
     ): void
     {
         $this->routerCollection->offsetSet(
             $aliasName,
-            new RouterItem($this->categoryAlias, $businessLabel, $aliasName, $uri, $this->className, $methodName, $requestMethod, $permissionType),
+            new RouterItem(
+                $this->categoryAlias,
+                $businessLabel,
+                $aliasName,
+                $uri,
+                $this->className,
+                $methodName,
+                $requestMethod,
+                $permissionType,
+                array_merge($this->getResource()->getMiddlewares(), $middlewares)
+            ),
         );
+    }
+
+    public function getResource(): Resource
+    {
+        return $this->resource;
     }
 
 

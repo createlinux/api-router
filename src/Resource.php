@@ -33,4 +33,9 @@ final class Resource
     {
         return $this->routeItems;
     }
+
+    public function getMiddlewares()
+    {
+        return $this->middlewares;
+    }
 }

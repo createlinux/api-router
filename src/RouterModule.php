@@ -37,7 +37,7 @@ final class RouterModule
 
         //检测$packCallback参数
         if ($packCallback) {
-            $router = new Router($this->moduleDirName);
+            $router = new Router($this->moduleDirName, $resource);
             $packCallback($router);
 
             $router->getAll()->map(function (RouterItem $routerItem) use ($resource) {
